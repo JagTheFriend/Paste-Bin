@@ -1,6 +1,6 @@
 body {
     background: #002b36;
-    margine: 0;
+    margin: 0;
 }
 
 .wrapper {
@@ -22,4 +22,16 @@ pre {
     color: #7D7D7D;
     font-family: monospace;
     text-align: end;
+}
+
+textarea {
+    background-color: inherit;
+    resize: none;
+    width: 100%;
+    padding: 0;
+    margin-left: 1rem;
+    color: #7D7D7D;
+    min-height: calc(100vh - 2rem);
+    border: none;
+    outline: none;
 }
