@@ -14,6 +14,7 @@ class CodeRoute implements Routes {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.codeController.index);
     this.router.get(`${this.path}new`, this.codeController.newPaste);
+    this.router.post(`${this.path}save`, this.codeController.savePaste);
   }
 }
 
