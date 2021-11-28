@@ -2,10 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 class CodeController {
   public index = (req: Request, res: Response, next: NextFunction) => {
-    const code = `idk
-    what to
-    write here
-    `;
+    const code = `idk\nwhat to\nwrite here\n`;
     try {
       res
         .set(
@@ -16,6 +13,9 @@ class CodeController {
     } catch (error) {
       next(error);
     }
+  };
+  public newPaste = (req: Request, res: Response) => {
+    res.render('New');
   };
 }
 
