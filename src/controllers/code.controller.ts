@@ -35,6 +35,21 @@ class CodeController {
       res.render('new', { value });
     }
   };
+
+  public viewPaste = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+      const document = await codeModel.findById(id);
+      res
+        .set(
+          'Content-Security-Policy',
+          "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
+        )
+        .render('index', { code: document.value });
+    } catch (error) {
+      logger.error(error);
+    }
+  };
 }
 
 export default CodeController;
