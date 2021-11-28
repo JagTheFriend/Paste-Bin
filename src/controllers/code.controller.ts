@@ -4,17 +4,7 @@ import { logger } from '@utils/logger';
 
 class CodeController {
   public index = (req: Request, res: Response, next: NextFunction) => {
-    const code = `idk\nwhat to\nwrite here\n`;
-    try {
-      res
-        .set(
-          'Content-Security-Policy',
-          "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
-        )
-        .render('index', { code: code });
-    } catch (error) {
-      next(error);
-    }
+    res.redirect('/new');
   };
   public newPaste = (req: Request, res: Response) => {
     res
@@ -22,7 +12,7 @@ class CodeController {
         'Content-Security-Policy',
         "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
       )
-      .render('New');
+      .render('new');
   };
 
   public savePaste = async (req: Request, res: Response) => {
@@ -45,9 +35,26 @@ class CodeController {
           'Content-Security-Policy',
           "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
         )
-        .render('index', { code: document.value });
+        .render('index', { code: document.value, id });
     } catch (error) {
       logger.error(error);
+      res.redirect('/');
+    }
+  };
+
+  public duplicatePaste = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+      const document = await codeModel.findById(id);
+      res
+        .set(
+          'Content-Security-Policy',
+          "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'",
+        )
+        .render('new', { value: document.value, id });
+    } catch (error) {
+      logger.error(error);
+      res.redirect(`/${id}`);
     }
   };
 }

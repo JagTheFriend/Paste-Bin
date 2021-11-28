@@ -15,6 +15,7 @@ class CodeRoute implements Routes {
     this.router.get(`${this.path}`, this.codeController.index);
     this.router.get(`${this.path}new`, this.codeController.newPaste);
     this.router.post(`${this.path}save`, this.codeController.savePaste);
+    this.router.get(`${this.path}:id/duplicate`, this.codeController.duplicatePaste);
     this.router.get(`${this.path}:id`, this.codeController.viewPaste);
   }
 }
